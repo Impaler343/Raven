@@ -11,6 +11,19 @@ template <typename MOQTObject> class MessageHandler
     MOQTObject& moqt;
     ConnectionState& connectionState;
 
+    /**
+     * @brief Handle the CLIENT_SETUP message
+     *
+     * This method processes a ClientSetupMessage received from a client.
+     * It checks if the version requested by the client is supported by the server/
+     * If it is not, the connection is destroyed.
+     * If it is, the server setup message is created and queued for sending.
+     *
+     * @param connectionState The connection state object
+     * @param clientSetupMessage The message received from the client
+     * @return QUIC_STATUS The status of the connection
+     *
+     */
     QUIC_STATUS
     handle_message(ConnectionState&, protobuf_messages::ClientSetupMessage&& clientSetupMessage)
     {
