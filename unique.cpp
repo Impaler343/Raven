@@ -39,6 +39,15 @@ public:
     }
 
     /**
+     * Make unique function
+     */
+    template <typename... Args>
+    static MyUniquePointer make_unique(Args&&... args)
+    {
+        return MyUniquePointer(new T(std::forward<Args>(args)...));
+    }
+
+    /**
      * Move assignment operator
      */
     MyUniquePointer& operator=(MyUniquePointer&& other) noexcept
@@ -56,6 +65,11 @@ public:
      * Dereference the stored pointer
      */
     T& operator*() const { return *ptr_here; }
+
+    /**
+     * Arrow operator
+     */
+    T* operator->() const { return ptr_here; }
 
     /**
      * @brief Get the address of the stored pointer
